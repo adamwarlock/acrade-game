@@ -1,6 +1,7 @@
 // Enemies our player must avoid
 var score = 0;
 var health = 4;
+//enemy init
 var Enemy = function (i, j) {
     this.speed = 50;
     this.x = i;
@@ -8,9 +9,15 @@ var Enemy = function (i, j) {
 
     this.sprite = 'images/enemy-bug.png';
 };
-
+// function to check if player collided with enemy(bugs)
+function chck(a, b) {
+    if ((a < player.x + 30 && a + 60 > player.x) & (b < player.y + 60 && b + 40 > player.y))
+        return true;
+    return false;
+}
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+//enemy position updates
 Enemy.prototype.update = function (dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -18,8 +25,8 @@ Enemy.prototype.update = function (dt) {
     this.x = this.x + (this.speed * dt);
     if (this.x >= 505)
         this.x = 0;
-
-    if ((this.x < player.x + 30 && this.x + 60 > player.x) & (this.y < player.y + 60 && this.y + 40 > player.y)) {
+    //score & health on basis of player-enemy collision
+    if (chck(this.x, this.y)) {
 
         score = 0;
         health -= 1;
